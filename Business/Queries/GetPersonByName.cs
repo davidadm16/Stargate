@@ -1,0 +1,57 @@
+﻿using Dapper;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using StargateAPI.Business.Data;
+using StargateAPI.Business.Dtos;
+using StargateAPI.Controllers;
+
+namespace StargateAPI.Business.Queries
+{
+    public class GetPersonByName : IRequest<GetPersonByNameResult>
+    {
+        public required string Name { get; set; } = string.Empty;
+    }
+
+    public class GetPersonByNameHandler : IRequestHandler<GetPersonByName, GetPersonByNameResult>
+    {
+        private readonly StargateContext _context;
+        public GetPersonByNameHandler(StargateContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<GetPersonByNameResult> Handle(GetPersonByName request, CancellationToken cancellationToken)
+        {
+            var result = new GetPersonByNameResult();
+
+            //var query = $"SELECT a.Id as PersonId, a.Name, b.CurrentRank, b.CurrentDutyTitle, b.CareerStartDate, b.CareerEndDate FROM [Person] a LEFT JOIN [AstronautDetail] b on b.PersonId = a.Id WHERE '{request.Name}' = a.Name";
+
+            //var person = await _context.Connection.QueryAsync<PersonAstronaut>(query);
+
+            //result.Person = person.FirstOrDefault();
+
+            //Better to use this LINQ method instead of an explicitly typed query string
+            result.Person = await (from p in _context.People
+                                   join ad in _context.AstronautDetails
+                                       on p.Id equals ad.PersonId into people
+                                   from ad in people.DefaultIfEmpty() //Left join
+                                   where p.Name == request.Name
+                                   select new PersonAstronaut
+                                   {
+                                       PersonId = p.Id,
+                                       Name = p.Name,
+                                       CurrentRank = ad.CurrentRank,
+                                       CurrentDutyTitle = ad.CurrentDutyTitle,
+                                       CareerStartDate = ad.CareerStartDate,
+                                       CareerEndDate = ad.CareerEndDate
+                                   }).FirstOrDefaultAsync();
+
+            return result;
+        }
+    }
+
+    public class GetPersonByNameResult : BaseResponse
+    {
+        public PersonAstronaut? Person { get; set; }
+    }
+}
