@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StargateAPI", "StargateAPI.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StargateTests", "..\StargateTests\StargateTests.csproj", "{B272B377-DD88-40C3-BEAA-4040D0291326}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "StargateAngular", "..\StargateAngular\StargateAngular.esproj", "{F6E38ABF-1596-5F83-219F-9D3299E220AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,12 @@ Global
 		{B272B377-DD88-40C3-BEAA-4040D0291326}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B272B377-DD88-40C3-BEAA-4040D0291326}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B272B377-DD88-40C3-BEAA-4040D0291326}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6E38ABF-1596-5F83-219F-9D3299E220AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6E38ABF-1596-5F83-219F-9D3299E220AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6E38ABF-1596-5F83-219F-9D3299E220AE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F6E38ABF-1596-5F83-219F-9D3299E220AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6E38ABF-1596-5F83-219F-9D3299E220AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6E38ABF-1596-5F83-219F-9D3299E220AE}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
