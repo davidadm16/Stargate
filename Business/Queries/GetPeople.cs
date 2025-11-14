@@ -30,15 +30,6 @@ namespace StargateAPI.Business.Queries
 
             //result.People = people.ToList();
 
-            LogEvent logEvent = new LogEvent()
-            {
-                Name = "GetPeople",
-                Description = "Method for Getting all the People",
-                StartTime = DateTime.UtcNow
-            };
-
-            _context.LogEvents.Add(logEvent);
-
             //Better to use this LINQ method instead of an explicitly typed query string
             result.People = await (from p in _context.People
                                    join ad in _context.AstronautDetails
@@ -53,10 +44,6 @@ namespace StargateAPI.Business.Queries
                                        CareerStartDate = ad.CareerStartDate,
                                        CareerEndDate = ad.CareerEndDate
                                    }).ToListAsync();
-
-            logEvent.IsException = false;
-            logEvent.EndTime = DateTime.UtcNow;
-            await _context.SaveChangesAsync();
 
             return result;
         }
